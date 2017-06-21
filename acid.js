@@ -7,7 +7,8 @@ events.push = function(e) {
     "cd src",
     "pwd",
     "ls -lah",
-    "cat acid.js"
+    "cat acid.js",
+    "sleep 200"
   ];
   j.run()
 }
