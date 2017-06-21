@@ -5,7 +5,7 @@ events.push = function(e) {
   node = new Job("node-runner")
   node.image = "node:8"
   node.tasks = [
-    "cd /src",
+    "cd /src/hello",
     "npm install",
     "node index.js"
   ]
