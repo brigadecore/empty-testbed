@@ -4,10 +4,7 @@ events.push = function(e) {
   j = new Job("empty-testbed-test");
   j.image = "acidic.azurecr.io/acid-ubuntu:latest";
   j.tasks = [
-    "cd src",
-    "pwd",
     "ls -lah",
-    "cat acid.js",
     "sleep 200"
   ];
   j.run()
