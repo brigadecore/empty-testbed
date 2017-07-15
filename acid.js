@@ -12,5 +12,6 @@ events.push = function(e) {
 }
 
 events.imagePush = function(e) {
-  console.log("hello")
+  hook = e.payload
+  console.log("===> Image push " + hook.repository.name + ":" + hook.push_data.tag))
 }
