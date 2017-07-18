@@ -31,10 +31,11 @@ events.after = function(e) {
 
     slack.image = "technosophos/slack-notify:latest"
     slack.env = {
-      "SLACK_WEBHOOK": project.secrets.SLACK_WEBHOOK,
-      "SLACK_USERNAME": "AcidBot",
-      "SLACK_TITLE": "Build " + e.Type,
-      "SLACK_MESSAGE": m + " <https://" + project.repo.name + ">"
+      SLACK_WEBHOOK: project.secrets.SLACK_WEBHOOK,
+      SLACK_USERNAME: "AcidBot",
+      SLACK_TITLE: "Build " + e.payload.status,
+      SLACK_MESSAGE: m + " <https://" + project.repo.name + ">",
+      SLACK_COLOR: "#00ff00"
     }
 
     slack.tasks = ["/slack-notify"]
