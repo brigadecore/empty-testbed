@@ -28,7 +28,7 @@ events.after = function(e) {
   if (project.secrets.SLACK_WEBHOOK) {
     var slack = new Job("slack-notifier")
 
-    slack.image = "technosophos/slack-notifier:latest"
+    slack.image = "technosophos/slack-notify:latest"
     slack.env = {
       "SLACK_WEBHOOK": project.secrets.SLACK_WEBHOOK,
       "SLACK_USERNAME": "AcidBot",
