@@ -25,12 +25,12 @@ events.after = function(e) {
   var c = e.payload.cause
   var m = "Hook " + c.type + " is in state " + e.type + " for build " + e.commit + " of " + project.name
 
-  if (project.secrets.SLACK_HOOK) {
+  if (project.secrets.SLACK_WEBHOOK) {
     var slack = new Job("slack-notifier")
 
     slack.image = "technosophos/slack-notifier:latest"
     slack.env = {
-      "SLACK_HOOK": project.secrets.SLACK_HOOK,
+      "SLACK_WEBHOOK": project.secrets.SLACK_WEBHOOK,
       "SLACK_USERNAME": "AcidBot",
       "SLACK_TITLE": "Build " + e.Type,
       "SLACK_MESSAGE": "<https://" + project.repo + "> " + m
