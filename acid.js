@@ -8,6 +8,10 @@ events.push = function(e) {
     "npm install",
     "node index.js"
   ]
+  nod.env = {
+    "unused": "myval",
+    "unused2": project.secrets.dbPassword || "empty"
+  }
   node.run()
 }
 
