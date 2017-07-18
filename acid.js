@@ -35,6 +35,7 @@ events.after = function(e) {
       "SLACK_TITLE": "Build " + e.Type,
       "SLACK_MESSAGE": "<https://" + project.repo + "> " + m
     }
+    slack.tasks = [ "/slack-notify" ]
 
     if (e.type != "success") {
       slack.env.SLACK_COLOR = "#ff0000"
