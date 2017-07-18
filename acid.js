@@ -20,3 +20,27 @@ events.imagePush = function(e) {
   var hook = e.payload
   console.log("===> Image push " + hook.repository.name + ":" + hook.push_data.tag)
 }
+
+events.after = function(e) {
+  var c = e.payload.cause
+  var m = "Hook " + c.type + " is in state " + e.type + " for build " + e.commit + " of " + project.name
+
+  if (project.secrets.SLACK_HOOK) {
+    var slack = new Job("slack-notifier")
+
+    slack.image = "technosophos/slack-notifier:latest"
+    slack.env = {
+      "SLACK_HOOK": project.secrets.SLACK_HOOK,
+      "SLACK_USERNAME": "AcidBot",
+      "SLACK_TITLE": "Build " + e.Type,
+      "SLACK_MESSAGE": "<https://" + project.repo + "> " + m
+    }
+
+    if (e.type != "success") {
+      slack.env.SLACK_COLOR = "#ff0000"
+    }
+    slack.run()
+  } else {
+    console.log(m)
+  }
+}
