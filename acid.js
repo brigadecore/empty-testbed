@@ -23,21 +23,23 @@ events.imagePush = function(e) {
 
 events.after = function(e) {
   var c = e.payload.cause
-  var m = "Hook " + c.type + " is in state " + e.type + " for build " + e.commit + " of " + project.name
+  var m = "Hook " + c.type + " is in state " + e.payload.status +
+    " for build " + e.commit + " of " + project.repo.name
 
   if (project.secrets.SLACK_WEBHOOK) {
-    var slack = new Job("slack-notifier")
+    var slack = new Job("slack-notify")
 
     slack.image = "technosophos/slack-notify:latest"
     slack.env = {
       "SLACK_WEBHOOK": project.secrets.SLACK_WEBHOOK,
       "SLACK_USERNAME": "AcidBot",
       "SLACK_TITLE": "Build " + e.Type,
-      "SLACK_MESSAGE": "<https://" + project.repo + "> " + m
+      "SLACK_MESSAGE": m + " <https://" + project.repo.name + ">"
     }
-    slack.tasks = [ "/slack-notify" ]
 
-    if (e.type != "success") {
+    slack.tasks = ["/slack-notify"]
+
+    if (e.payload.status != "success") {
       slack.env.SLACK_COLOR = "#ff0000"
     }
     slack.run()
@@ -45,3 +47,4 @@ events.after = function(e) {
     console.log(m)
   }
 }
+
