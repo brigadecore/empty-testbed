@@ -1,4 +1,6 @@
-events.push = function(e) {
+const {events, Job} = require("./libacid")
+
+events.on("push" function(e, project) {
   console.log("===> Building " + project.repo.cloneURL + " " + e.commit);
 
   var node = new Job("node-runner")
@@ -13,15 +15,15 @@ events.push = function(e) {
     "unused2": project.secrets.dbPassword || "empty"
   }
   node.run()
-}
+})
 
-events.imagePush = function(e) {
+events.on("imagePush", function(e) {
   console.log(JSON.stringify(e))
   var hook = e.payload
   console.log("===> Image push " + hook.repository.name + ":" + hook.push_data.tag)
-}
+})
 
-events.after = function(e) {
+events.on("after", function(e, project) {
   var c = e.payload.cause
   var m = "Hook " + c.type + " is in state " + e.payload.status +
     " for build " + e.commit + " of " + project.repo.name
@@ -47,5 +49,5 @@ events.after = function(e) {
   } else {
     console.log(m)
   }
-}
+})
 
