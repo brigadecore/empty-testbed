@@ -19,7 +19,7 @@ events.on("push", function(e, project) {
 
 events.on("imagePush", function(e) {
   console.log(JSON.stringify(e))
-  var hook = e.payload
+  var hook = JSON.parse(e.payload)
   console.log("===> Image push " + hook.repository.name + ":" + hook.push_data.tag)
 })
 
