@@ -1,4 +1,4 @@
-const {events, Job} = require("./libacid")
+//const {events, Job} = require("./libacid")
 
 events.on("push", function(e, project) {
   console.log("===> Building " + project.repo.cloneURL + " " + e.commit)
@@ -24,8 +24,8 @@ events.on("imagePush", function(e) {
 })
 
 events.on("after", function(e, project) {
-  var c = e.payload.cause
-  var m = "Hook " + c.type + " is in state " + e.payload.status +
+  var c = e.cause.event
+  var m = "Hook " + c.type + " is in state " + e.cause.trigger +
     " for build " + e.commit + " of " + project.repo.name
 
   if (project.secrets.SLACK_WEBHOOK) {
@@ -35,14 +35,14 @@ events.on("after", function(e, project) {
     slack.env = {
       SLACK_WEBHOOK: project.secrets.SLACK_WEBHOOK,
       SLACK_USERNAME: "AcidBot",
-      SLACK_TITLE: "Build " + e.payload.status,
+      SLACK_TITLE: "Build " + e.cause.trigger,
       SLACK_MESSAGE: m + " <https://" + project.repo.name + ">",
       SLACK_COLOR: "#00ff00"
     }
 
     slack.tasks = ["/slack-notify"]
 
-    if (e.payload.status != "success") {
+    if (e.cause.trigger != "success") {
       slack.env.SLACK_COLOR = "#ff0000"
     }
     slack.run()
