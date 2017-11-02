@@ -1,4 +1,4 @@
-const {events, Job} = require("libacid")
+const { events, Job, Group} = require("brigadier")
 
 events.on("push", function(e, project) {
   console.log("===> Building " + project.repo.cloneURL + " " + e.commit)
