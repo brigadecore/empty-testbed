@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deis/empty-testbed.git"
+    "url": "git+https://github.com/brigadecore/empty-testbed.git"
   },
   "keywords": [
     "web",
@@ -18,7 +18,7 @@
   "author": "technosophos",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/deis/empty-testbed/issues"
+    "url": "https://github.com/brigadecore/empty-testbed/issues"
   },
-  "homepage": "https://github.com/deis/empty-testbed#readme"
+  "homepage": "https://github.com/brigadecore/empty-testbed#readme"
 }
