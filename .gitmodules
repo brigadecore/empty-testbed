@@ -1,0 +1,3 @@
+[submodule ".submodules/community"]
+	path = .submodules/community
+	url = https://github.com/brigadecore/community
